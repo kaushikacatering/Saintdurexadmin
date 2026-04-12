@@ -35,7 +35,7 @@ export default function Error({
             Try again
           </Button>
           <Button
-            onClick={() => window.location.href = '/'}
+            onClick={() => window.location.href = '/dashboard'}
             variant="outline"
             className="border-gray-300"
             style={{ fontFamily: 'Albert Sans', fontWeight: 600 }}

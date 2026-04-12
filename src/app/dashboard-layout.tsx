@@ -28,6 +28,20 @@ export function DashboardLayout({
 
     // Check auth in background without blocking the UI
     const verifyAuth = async () => {
+      // First check Zustand in-memory state — if already authenticated (e.g. just logged in),
+      // skip the localStorage check and API re-verification to avoid race conditions
+      const inMemoryAuth = useAuthStore.getState()
+      if (inMemoryAuth.isAuthenticated && inMemoryAuth.token) {
+        // Already authenticated in-memory (e.g. right after login) — just check permissions
+        if (inMemoryAuth.user) {
+          const hasAccess = canAccessRoute(inMemoryAuth.user.auth_level, pathname)
+          if (!hasAccess) {
+            router.push('/dashboard')
+          }
+        }
+        return
+      }
+
       const storedAuth = localStorage.getItem('caterly-auth')
       
       if (!storedAuth) {

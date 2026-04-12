@@ -39,12 +39,18 @@ export default function LoginPage() {
       await login(data.username, data.password)
       toast.success("Login successful!")
       
+      // Signal to session manager that we just logged in (avoid premature auth checks)
+      sessionStorage.setItem('just-logged-in', 'true')
+      
       // Check if there's a redirect parameter
       const urlParams = new URLSearchParams(window.location.search)
       const redirect = urlParams.get('redirect')
       
+      // Ensure redirect is a valid internal path (not "/" which may be intercepted by cPanel)
+      const targetPath = redirect && redirect !== '/' ? redirect : '/dashboard'
+      
       // Redirect to the original page or dashboard
-      router.push(redirect || "/dashboard")
+      router.push(targetPath)
     } catch (error: any) {
       const errorMessage = error?.message || error.response?.data?.message || "Login failed. Please check your credentials."
       toast.error(errorMessage)
