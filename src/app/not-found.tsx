@@ -19,7 +19,7 @@ export default function NotFound() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="flex gap-4 justify-center">
-          <Link href="/">
+          <Link href="/dashboard">
             <Button
               className="bg-[#0d6efd] hover:bg-[#0b5ed7] text-white"
               style={{ fontFamily: 'Albert Sans', fontWeight: 600 }}

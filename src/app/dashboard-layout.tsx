@@ -32,7 +32,7 @@ export function DashboardLayout({
       
       if (!storedAuth) {
         // No auth data - redirect but don't block UI
-        const redirectPath = pathname !== "/" && pathname !== "/login" ? pathname : ""
+        const redirectPath = pathname !== "/dashboard" && pathname !== "/" && pathname !== "/login" ? pathname : ""
         router.push(`/login${redirectPath ? `?redirect=${redirectPath}` : ""}`)
         return
       }
@@ -52,7 +52,7 @@ export function DashboardLayout({
           const hasAccess = canAccessRoute(currentAuth.user.auth_level, pathname)
           if (!hasAccess) {
             // Redirect to dashboard if no permission
-            router.push('/')
+            router.push('/dashboard')
           }
         }
       } catch (error: any) {

@@ -22,7 +22,7 @@ import { toast } from "sonner"
 
 // Navigation structure matching PHP header
 const allNavigation = [
-  { name: "Dashboard", href: "/" },
+  { name: "Dashboard", href: "/dashboard" },
   { name: "Quotes", href: "/quotes" },
   { name: "Orders", href: "/orders" },
   {
@@ -263,7 +263,7 @@ export function Navbar() {
           </Sheet>
 
           {/* Logo */}
-          <Link href="/" prefetch={true} className="flex items-center justify-center flex-shrink-0">
+          <Link href="/dashboard" prefetch={true} className="flex items-center justify-center flex-shrink-0">
             <Image
               src="/assets/group171.svg"
               alt="St. Dreux Coffee"
