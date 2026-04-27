@@ -26,13 +26,14 @@ export default function SubscriptionDetailPage() {
   const [sendingInvoice, setSendingInvoice] = useState(false)
 
   // Fetch subscription data
-  const { data: subscriptionData, isLoading } = useQuery({
+  const { data: subscriptionData, isLoading, isError, error } = useQuery({
     queryKey: ["subscription", subscriptionId],
     queryFn: async () => {
       const response = await api.get(`/admin/subscriptions/${subscriptionId}`)
       return response.data.subscription
     },
     enabled: !!subscriptionId,
+    retry: 1,
   })
 
   // Fetch all products to match categories for GST
@@ -224,10 +225,13 @@ export default function SubscriptionDetailPage() {
   }
 
   if (!subscriptionData) {
+    const errorMessage = isError
+      ? (error as any)?.response?.data?.message || (error as any)?.message || "Failed to load subscription"
+      : "Subscription not found"
     return (
       <div className="bg-gray-50 min-h-screen flex items-center justify-center" style={{ fontFamily: 'Albert Sans' }}>
         <div className="text-center">
-          <p className="text-red-600 mb-4">Subscription not found</p>
+          <p className="text-red-600 mb-4">{errorMessage}</p>
           <Button onClick={() => router.push("/subscriptions")}>Back to Subscriptions</Button>
         </div>
       </div>
