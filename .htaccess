@@ -1,4 +1,11 @@
+DirectoryIndex disabled
+
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+<<<<<<< Updated upstream
+=======
+
+RewriteCond %{HTTPS} on
+>>>>>>> Stashed changes
 RewriteRule ^(.*)$ http://127.0.0.1:3200/$1 [P,L]

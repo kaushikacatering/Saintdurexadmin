@@ -8,7 +8,7 @@ const nextConfig = {
   reactStrictMode: true,
   
   // REQUIRED for ECS Docker
-  output: 'standalone',
+//  output: 'standalone',
   
   // IMPORTANT: ALB path
   // basePath: '/stdreux/admin',
