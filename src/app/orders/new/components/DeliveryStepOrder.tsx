@@ -199,7 +199,7 @@ export function DeliveryStep({ data, onUpdate, onSave, onBack }: DeliveryStepPro
   const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">(data.delivery_method || "delivery")
   const [selectedPickupLocation, setSelectedPickupLocation] = useState<number>(data.location_id || 0)
   const [selectedLocation, setSelectedLocation] = useState<number>(data.location_id || 0)
-  const [deliveryAddress, setDeliveryAddress] = useState(data.delivery_address || "")
+  const [deliveryAddress, setDeliveryAddress] = useState(data.delivery_address || data.customer_address || "")
   const [deliveryFee, setDeliveryFee] = useState(data.delivery_fee || 0)
   const [couponCode, setCouponCode] = useState(data.coupon_code || "")
   const [orderComments, setOrderComments] = useState(data.order_comments || "")
