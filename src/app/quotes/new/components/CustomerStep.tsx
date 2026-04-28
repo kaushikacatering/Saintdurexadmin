@@ -455,7 +455,7 @@ export function CustomerStep({ data, onUpdate, onNext, showAddCustomerModal = fa
       customer_type: customer?.customer_type || "Retail",
       phone,
       email,
-      customer_address: customerAddress || "",
+      customer_address: customer?.customer_address || customerAddress || "",
     })
 
     toast.success("Customer details saved")
