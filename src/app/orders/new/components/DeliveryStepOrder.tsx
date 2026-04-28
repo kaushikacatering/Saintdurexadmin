@@ -491,7 +491,7 @@ export function DeliveryStep({ data, onUpdate, onSave, onBack }: DeliveryStepPro
               {/* <ValidatedInput label="Contact Name" value={deliveryContactName} onChange={(val) => setDeliveryContactName(val)} className="h-11 border-gray-300" />
               <ValidatedInput label="Contact Number" value={deliveryContactNumber} onChange={(val) => setDeliveryContactNumber(val)} className="h-11 border-gray-300" /> */}
               
-              <ValidatedInput label="Email" value={accountEmail} onChange={(val) => setAccountEmail(val)} className="h-11 border-gray-300" />
+              {/* <ValidatedInput label="Email" value={accountEmail} onChange={(val) => setAccountEmail(val)} className="h-11 border-gray-300" /> */}
               <ValidatedInput label="Cost Center" value={costCenter} onChange={(val) => setCostCenter(val)} className="h-11 border-gray-300" />
               
               <div className="space-y-2 md:col-span-2">
