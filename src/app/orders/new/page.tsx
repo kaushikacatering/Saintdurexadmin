@@ -230,6 +230,7 @@ export default function NewOrderPage() {
             option_name: addon.option_name,
             option_value: addon.option_value,
             option_price: addon.option_price,
+            option_quantity: addon.quantity, // Map frontend 'quantity' to backend 'option_quantity'
             product_option_id: addon.product_option_id,
             option_value_id: addon.option_value_id
           }))

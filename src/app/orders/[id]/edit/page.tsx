@@ -302,7 +302,10 @@ export default function EditOrderPage() {
           quantity: product.quantity,
           price: product.price,
           comment: product.comment || null,
-          add_ons: product.add_ons || []
+          add_ons: (product.add_ons || []).map(addon => ({
+            ...addon,
+            option_quantity: addon.quantity || addon.option_quantity || 1,
+          }))
         }))
       }
 

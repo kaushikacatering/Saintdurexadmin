@@ -120,6 +120,7 @@ export default function NewQuotePage() {
         add_ons: product.add_ons?.map(addon => ({
           ...addon,
           price: (addon as any).base_price || addon.price, // Use base_price if available
+          option_quantity: addon.quantity || 1, // Map frontend 'quantity' to backend 'option_quantity'
         })) || []
       })) || []
 
