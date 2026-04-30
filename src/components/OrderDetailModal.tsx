@@ -273,6 +273,15 @@ export function OrderDetailModal({
                                 fontFamily: "Albert Sans",
                                 fontWeight: 600,
                               }}
+                              className="text-left px-4 py-3 text-sm text-gray-700"
+                            >
+                              Description
+                            </th>
+                            <th
+                              style={{
+                                fontFamily: "Albert Sans",
+                                fontWeight: 600,
+                              }}
                               className="text-center px-4 py-3 text-sm text-gray-700"
                             >
                               Quantity
@@ -370,6 +379,14 @@ export function OrderDetailModal({
                                       </p>
                                     )}
                                   </div>
+                                </td>
+                                <td className="px-4 py-4">
+                                  <span
+                                    style={{ fontFamily: "Albert Sans" }}
+                                    className="text-sm text-gray-600"
+                                  >
+                                    {product.product_description || '-'}
+                                  </span>
                                 </td>
                                 <td className="px-4 py-4 text-center">
                                   <span

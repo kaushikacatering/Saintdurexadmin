@@ -986,6 +986,7 @@ export default function DashboardPage() {
                   {/* 
                   <th style={{ fontFamily: 'Albert Sans', fontWeight: 600 }} className="text-left px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 whitespace-nowrap">Delivery Date/Time</th> */}
                   <th style={{ fontFamily: 'Albert Sans', fontWeight: 600 }} className="text-left px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 whitespace-nowrap">Order Status</th>
+                  <th style={{ fontFamily: 'Albert Sans', fontWeight: 600 }} className="text-left px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 whitespace-nowrap">Source</th>
                   <th style={{ fontFamily: 'Albert Sans', fontWeight: 600 }} className="text-left px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 whitespace-nowrap">Actions</th>
                 </tr>
               </thead>
@@ -1037,7 +1038,18 @@ export default function DashboardPage() {
                         {getStatusBadge(order)}
                       </td>
                       <td className="px-3 sm:px-6 py-3 sm:py-4">
-                        <div className="flex items-center gap-2 whitespace-nowrap">
+                        {order.order_made_from === 'admin' ? (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200" style={{ fontFamily: 'Albert Sans' }}>
+                            Backend
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200" style={{ fontFamily: 'Albert Sans' }}>
+                            Frontend
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 sm:py-4">
+                        <div className="flex items-center gap-2">
                           <Button
                             variant="outline"
                             size="sm"

@@ -1313,13 +1313,13 @@ export default function OrdersPage() {
                                 <Eye className="h-4 w-4 mr-2" />
                                 View Details
                               </DropdownMenuItem>
-                              {/* <DropdownMenuItem
+                              <DropdownMenuItem
                                 onClick={() => handleEditOrder(order.order_id)}
                                 className="cursor-pointer"
                               >
                                 <Edit className="h-4 w-4 mr-2" />
                                 Edit Order
-                              </DropdownMenuItem> */}
+                              </DropdownMenuItem>
                               {/* <DropdownMenuItem
                                 onClick={() => handlePayment(order.order_id)}
                                 className="cursor-pointer"
