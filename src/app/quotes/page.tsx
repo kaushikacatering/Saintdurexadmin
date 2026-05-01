@@ -625,18 +625,6 @@ export default function QuotesPage() {
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700" style={{ fontFamily: 'Albert Sans', fontWeight: 600 }}>
                   <div className="flex items-center gap-2">
-                    Delivery Date
-                    <GripVertical className="h-4 w-4 text-gray-400 rotate-90" />
-                  </div>
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700" style={{ fontFamily: 'Albert Sans', fontWeight: 600 }}>
-                  <div className="flex items-center gap-2">
-                    Delivery Time
-                    <GripVertical className="h-4 w-4 text-gray-400 rotate-90" />
-                  </div>
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700" style={{ fontFamily: 'Albert Sans', fontWeight: 600 }}>
-                  <div className="flex items-center gap-2">
                     Amount
                     <GripVertical className="h-4 w-4 text-gray-400 rotate-90" />
                   </div>
@@ -655,13 +643,13 @@ export default function QuotesPage() {
             <tbody>
               {isLoading ? (
                 <tr>
-                  <td colSpan={10} className="px-6 py-8 text-center text-gray-500">
+                  <td colSpan={8} className="px-6 py-8 text-center text-gray-500">
                     Loading quotes...
                   </td>
                 </tr>
               ) : quotes.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="px-6 py-8 text-center text-gray-500">
+                  <td colSpan={8} className="px-6 py-8 text-center text-gray-500">
                     No quotes found. Try adjusting your filters or create a new quote.
                   </td>
                 </tr>
@@ -731,52 +719,6 @@ export default function QuotesPage() {
                       </span>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="text-gray-700" style={{
-                        fontFamily: 'Albert Sans',
-                        fontWeight: 400,
-                        fontStyle: 'normal',
-                        fontSize: '14px',
-                        lineHeight: '20px',
-                        letterSpacing: '0%'
-                      }}>
-                        {(() => {
-                          if (!quote.delivery_date_time) return quote.delivery_date || 'N/A';
-                          
-                          try {
-                            const date = new Date(quote.delivery_date_time)
-                            const day = String(date.getDate()).padStart(2, '0')
-                            const month = String(date.getMonth() + 1).padStart(2, '0')
-                            const year = date.getFullYear()
-                            return `${day}/${month}/${year}`
-                          } catch (e) {
-                            return quote.delivery_date || 'N/A';
-                          }
-                        })()}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4">
-                      <span className="text-gray-700" style={{
-                        fontFamily: 'Albert Sans',
-                        fontWeight: 400,
-                        fontStyle: 'normal',
-                        fontSize: '14px',
-                        lineHeight: '20px',
-                        letterSpacing: '0%'
-                      }}>
-                        {quote.delivery_time || (() => {
-                          if (!quote.delivery_date_time) return 'N/A';
-                          try {
-                            const date = new Date(quote.delivery_date_time)
-                            const hours = String(date.getHours()).padStart(2, '0')
-                            const minutes = String(date.getMinutes()).padStart(2, '0')
-                            return `${hours}:${minutes}`
-                          } catch (e) {
-                            return 'N/A'
-                          }
-                        })()}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4">
                       <span className="text-gray-900" style={{
                         fontFamily: 'Albert Sans',
                         fontWeight: 400,
@@ -803,13 +745,15 @@ export default function QuotesPage() {
                       </span>
                     </td>
                     <td className="px-4 py-4">
-                      <div onClick={(e) => e.stopPropagation()}>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <button className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors">
-                              <MoreVertical className="h-4 w-4" />
-                            </button>
-                          </DropdownMenuTrigger>
+                      <DropdownMenu modal={false}>
+                        <DropdownMenuTrigger asChild>
+                          <button 
+                            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MoreVertical className="h-5 w-5" />
+                          </button>
+                        </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-48">
                             <DropdownMenuItem
                               onClick={() => router.push(`/quotes/${quote.order_id}`)}
@@ -852,7 +796,6 @@ export default function QuotesPage() {
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
-                      </div>
                     </td>
                   </tr>
                 ))

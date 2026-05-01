@@ -457,12 +457,14 @@ export default function EditQuotePage() {
       </div>
 
       {/* Step Content */}
-      {currentStep === 1 && isDataLoaded && (
-        <CustomerStep
-          data={quoteData}
-          onUpdate={updateQuoteData}
-          onNext={handleNext}
-        />
+      {isDataLoaded && (
+        <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
+          <CustomerStep
+            data={quoteData}
+            onUpdate={updateQuoteData}
+            onNext={handleNext}
+          />
+        </div>
       )}
       {currentStep === 1 && !isDataLoaded && (
         <div className="flex items-center justify-center py-12">
