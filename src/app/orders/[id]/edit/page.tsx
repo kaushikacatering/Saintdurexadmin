@@ -126,23 +126,11 @@ export default function EditOrderPage() {
             const productQty = parseFloat(product.quantity || '0') || 1
             const basePrice = parseFloat(product.price || '0')
 
-            // Calculate total option price for one unit of product
-            // In the DB, option_quantity is typically the total quantity for the line item
-            const optionsUnitTotal = product.options?.reduce((sum: number, option: any) => {
-              const optPrice = parseFloat(option.option_price || '0')
-              const optTotalQty = parseFloat(option.option_quantity || '0')
-              // Calculate per-unit quantity: total option qty / product qty
-              const optUnitQty = productQty > 0 ? optTotalQty / productQty : 0
-              return sum + (optPrice * optUnitQty)
-            }, 0) || 0
-
-            const bundledUnitPrice = basePrice + optionsUnitTotal
-
             return {
               product_id: product.product_id,
               name: product.product_name,
               category: 'N/A',
-              price: bundledUnitPrice, // Use bundled price as expected by ProductsStep
+              price: basePrice, // Use base product price only (options are separate in add_ons)
               quantity: productQty,
               comment: product.product_comment || product.comment || '',
               add_ons: product.options?.map((option: any) => {

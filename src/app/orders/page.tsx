@@ -28,49 +28,11 @@ import { printTableData } from "@/lib/print-utils"
 import { Badge } from "@/components/ui/badge"
 
 
-// Component to fetch and calculate accurate order amount client-side
-// This is needed because the backend list endpoint doesn't calculate option prices correctly
+// Component to display order amount from the listing data
+// The backend findAll now returns calculated_total with correct option pricing
 const OrderAmountDisplay = ({ orderId, initialData }: { orderId: number, initialData?: any }) => {
-  const { data: orderDetails } = useQuery({
-    queryKey: ['order-amount', orderId],
-    queryFn: async () => {
-      const response = await api.get(`/admin/orders/${orderId}`)
-      return response.data.order
-    },
-    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
-    initialData: initialData
-  })
-
-  // Use backend provided total directly to ensure consistency
-  // If we have detailed data, use it. Otherwise use initial prop data.
-  const order = orderDetails || initialData || {}
-
+  const order = initialData || {}
   const total = Number(order.calculated_total || order.order_total || 0)
-  let gst = Number(order.gst || 0)
-
-  // If GST is 0/missing but we have products (from detail fetch), calculate it
-  if (gst === 0 && order.products && Array.isArray(order.products)) {
-    const productsTotal = order.products.reduce((acc: number, product: any) => {
-      const pPrice = Number(product.price || 0)
-      const pQty = Number(product.quantity || 0)
-      const pTotal = pPrice * pQty
-
-      const optionsTotal = (product.options || []).reduce((oAcc: number, opt: any) => {
-        const oPrice = Number(opt.option_price || opt.price || 0)
-        const oQty = Number(opt.option_quantity || opt.quantity || 1)
-        return oAcc + (oPrice * oQty)
-      }, 0)
-
-      return acc + pTotal + optionsTotal
-    }, 0)
-
-    // Check for discount
-    const discount = Number(order.coupon_discount || 0)
-    const taxable = Math.max(0, productsTotal - discount)
-    gst = taxable * 0.1
-  }
-
-  // Return full total instead of EX GST
   return <span>${total.toFixed(2)}</span>
 }
 
