@@ -14,6 +14,19 @@ import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://ec2-13-55-72-162.ap-southeast-2.compute.amazonaws.com:9000"
+
+// Resolve image URL: if the stored URL points to localhost or a wrong host, rewrite it using the actual API URL
+function resolveImageUrl(url: string | null | undefined): string {
+  if (!url) return ""
+  // If it's a relative path like /uploads/..., prepend the API URL
+  if (url.startsWith("/uploads/")) return `${API_URL}${url}`
+  // If it contains /uploads/ but with a wrong host (e.g. localhost), extract the path and prepend the correct API URL
+  const uploadsIndex = url.indexOf("/uploads/")
+  if (uploadsIndex !== -1) return `${API_URL}${url.substring(uploadsIndex)}`
+  return url
+}
+
 interface Blog {
   blog_id: number
   title: string
@@ -149,7 +162,7 @@ export default function BlogsPage() {
         return
       }
       setFeaturedImageUrl(imageUrl)
-      setImagePreview(imageUrl)
+      setImagePreview(resolveImageUrl(imageUrl))
       setUploadingImage(false)
       toast.success("Image uploaded successfully")
     },
@@ -191,7 +204,7 @@ export default function BlogsPage() {
     setTags(blog.tags?.join(", ") || "")
     setIsFeatured(blog.is_featured)
     setIsPublished(blog.is_published)
-    setImagePreview(blog.featured_image_url || "")
+    setImagePreview(resolveImageUrl(blog.featured_image_url))
     setShowEditModal(true)
   }
 
@@ -315,7 +328,7 @@ export default function BlogsPage() {
                 {blog.featured_image_url && (
                   <div className="relative w-full sm:w-48 h-48 flex-shrink-0 rounded-lg overflow-hidden">
                     <Image
-                      src={blog.featured_image_url}
+                      src={resolveImageUrl(blog.featured_image_url)}
                       alt={blog.title}
                       fill
                       className="object-cover"
@@ -502,7 +515,7 @@ export default function BlogsPage() {
               {imagePreview ? (
                 <div className="relative w-full h-48 rounded-lg overflow-hidden mb-2 border">
                   <Image
-                    src={imagePreview}
+                    src={resolveImageUrl(imagePreview)}
                     alt="Preview"
                     fill
                     className="object-cover"
